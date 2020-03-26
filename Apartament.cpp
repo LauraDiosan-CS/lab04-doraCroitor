@@ -10,20 +10,26 @@ using namespace std;
 	Out: An instance of Apartament
 */
 Apartament::Apartament() {
-	cout << "default constructor " << endl;
-	this->name = NULL;
+	//cout << "default constructor " << endl;
+	this->id = 0;
+	this->nrApt = 0;
+	this->sum = 0;
+	this->type = NULL;
 }
 
 
 /*
 	Desc: Create an apartament
-	In: A name
+	In: A type
 	Out: An instance (with info) of Apartament
 */
-Apartament::Apartament(char* name) {
-	cout << "constructor with param " << endl;
-	this->name = new char[strlen(name) + 1];
-	strcpy_s(this->name, strlen(name) + 1, name);
+Apartament::Apartament(int id, int nrApt, int sum,char* type) {
+	//cout << "constructor with param " << endl;
+	this->id = id;
+	this->nrApt = nrApt;
+	this->sum = sum;
+	this->type = new char[strlen(type) + 1];
+	strcpy_s(this->type, strlen(type) + 1, type);
 }
 
 
@@ -33,9 +39,12 @@ Apartament::Apartament(char* name) {
 	Out: An instance of Apartament with info from a
 */
 Apartament::Apartament(const Apartament& a) {
-	cout << "copy constructor " << endl;
-	this->name = new char[strlen(a.name) + 1];
-	strcpy_s(this->name, strlen(a.name) + 1, a.name);
+	//cout << "copy constructor " << endl;
+	this->id = a.id;
+	this->nrApt = a.nrApt;
+	this->sum = a.sum;
+	this->type = new char[strlen(a.type) + 1];
+	strcpy_s(this->type, strlen(a.type) + 1, a.type);
 }
 
 
@@ -45,41 +54,97 @@ Apartament::Apartament(const Apartament& a) {
 	Out: - (destructor)
 */
 Apartament::~Apartament() {
-	if (this->name != NULL) {
-		cout << "destructor of product " << name << endl;
-		delete[] this->name;
-		this->name = NULL;
+	if (this->type != NULL) {
+		//cout << "destructor of product " << nrApt << endl;
+		delete[] this->type;
+		this->type = NULL;
 	}
+}
+
+int Apartament::getId() {
+	return this->id;
+}
+
+
+void Apartament::setId(int n) {
+	this->id = id;
 }
 
 
 /*
-	Desc: Acces a name of an apartament
+	Desc: Acces a nrApt of an apartament
 	In: an apartament
-	Out: The name
+	Out: The nrApt
 */
-char* Apartament::getName() {
-	return this->name;
+int Apartament::getNrApt() {
+	return this->nrApt;
 }
 
 
 /*
-	Desc: Change the name of an apartament
-	In: An apartament and a name
-	Out: The apartament with changed name
+	Desc: Acces a sum of an apartament
+	In: An apt
+	Out: The sum
 */
-void Apartament::setName(char* name) {
-	if (name) {
-		delete[] this->name;
+int Apartament::getSum() {
+	return this->sum;
+}
+
+
+/*
+	Desc: Acces a type of an apartament
+	In: an apartament
+	Out: The type
+*/
+char* Apartament::getType() {
+	return this->type;
+}
+
+
+/*
+	Desc: Change the nrApt
+	In: An apt and a nr
+	Out:The apt with changed nr
+*/
+void Apartament::setNrApt(int nrApt) {
+	this->nrApt = nrApt;
+}
+
+
+/*
+	Desc: Change the sum
+	In: An apt an a sum
+	Out: The apt with changed sum
+*/
+void Apartament::setSum(int sum) {
+	this->sum = sum;
+}
+
+
+/*
+	Desc: Change the type of an apartament
+	In: An apartament and a type
+	Out: The apartament with changed type
+*/
+void Apartament::setType(char* type) {
+	if (this->type != NULL) {
+		delete[] this->type;
 	}
-	this->name = new char[strlen(name) + 1];
-	strcpy_s(this->name, strlen(name) + 1, name);
+
+	if (type != NULL) {
+		this->type = new char[strlen(type) + 1];
+		strcpy_s(this->type, strlen(type) + 1, type);
+	}
+	else
+		this->type = NULL;
 }
 
 
 
 Apartament& Apartament::operator=(const Apartament& a) {
-	this->setName(a.name);
+	this->setNrApt(a.nrApt);
+	this->setSum(a.sum);
+	this->setType(a.type);
 	return *this;
 }
 
@@ -90,7 +155,13 @@ Apartament& Apartament::operator=(const Apartament& a) {
 	Out: result
 */
 bool Apartament:: operator==(const Apartament& a) {
-	return strcmp(this->name, a.name) == 0;
+	return strcmp(this->type, a.type) == 0;
 }
 
+
+ostream& operator<<(ostream& os, const Apartament& a) {
+	os << " Nr apartament: " << a.nrApt << " , suma de bani: " << a.sum << " si tipul : " << a.type << "\n";
+	os << endl;
+	return os;
+}
 

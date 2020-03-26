@@ -1,5 +1,9 @@
 #pragma once
 
-void testGets();
-void testSets();
+void testApartament();
 void testRepo();
+void testStergere();
+void testConditii();
+void testProprietati();
+void testSortari();
+void testFiltrari();
